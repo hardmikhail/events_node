@@ -7,3 +7,6 @@ services:
         - path: ./.env
     ports:
       - "$POSTGRES_PORT:5432"
+
+
+# todo: сделать полный запуск проекта с помощью  docker-compose, а не только БД

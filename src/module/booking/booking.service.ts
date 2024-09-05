@@ -26,6 +26,11 @@ export class BookingService {
   }
 
   async deleteBooking(user: User, eventId: number) {
+    // todo: убрать формирование запроса в сервисе
+    //  {
+    //       user: Equal(user.id),
+    //       event: Equal(eventId),
+    //   }
     const result = await this.bookingRepository.delete({
       user: Equal(user.id),
       event: Equal(eventId),
@@ -36,12 +41,14 @@ export class BookingService {
   }
 
   private findOneBooking(user: User, eventId: number) {
+    // todo: убрать формирование запроса в сервисе
     return this.bookingRepository.findOneBy({
       user: Equal(user.id),
       event: Equal(eventId),
     });
   }
   findAll() {
+    // todo: убрать формирование запроса в сервисе
     return this.bookingRepository.find({ relations: ['user', 'event'] });
   }
 }

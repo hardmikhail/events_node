@@ -15,6 +15,7 @@ export class EventRepository extends Repository<Event> {
     );
   }
 
+  // todo: переопределил метод из репозитория typeOrm. Это решится, если избавиться от наследования (смотри todo в user.reposutory)
   async findOneById(id: number) {
     return this.eventRepository.findOne({
       where: { id },

@@ -64,6 +64,7 @@ export class EventService {
     });
   }
 
+  // todo: мертвый код
   sendEmail() {
     this.mailerService
       .sendMail({

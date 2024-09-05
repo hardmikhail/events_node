@@ -22,6 +22,7 @@ export class AuthController {
     return this.authService.login(user);
   }
 
+  // todo: мёртвый код
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   logout() {

@@ -8,6 +8,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         transport: {
+          // todo: use configService.getOrThrow
           host: configService.get('SMTP_HOST'),
           port: configService.get('SMTP_PORT'),
           auth: {

@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
+// todo: делать относительные пути везде либо использовать настройку шорткатов через ts-config
 import { UserRepository } from 'src/module/user/user.repository';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +19,7 @@ export class UserService {
     const hashedPassword = await hash(user.password);
     user.password = hashedPassword;
     user.email = email;
+
     return this.userRepository.save(user);
   }
 

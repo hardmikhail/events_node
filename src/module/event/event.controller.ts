@@ -46,6 +46,7 @@ export class EventController {
 
   @Patch('update/:id')
   @UseGuards(AccessTokenGuard, EventOwnerGuard)
+  // todo: сделать отдельное dto для updateEventDto. Использовать PartialType
   update(@Param('id') id: number, @Body() updateEventDto: CreateEventDto) {
     return this.eventService.updateEvent(id, updateEventDto);
   }

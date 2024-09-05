@@ -2,6 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/module/user/entity/user.entity';
 import { Between, Repository } from 'typeorm';
 
+// todo: не использовать наследование, а делать обёртку
 export class UserRepository extends Repository<User> {
   constructor(
     @InjectRepository(User)

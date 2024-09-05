@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { EventRepository } from 'src/module/event/event.repository';
 
+// todo: как будто по логике этот guard должен быть в другом модуле
 @Injectable()
 export class EventOwnerGuard implements CanActivate {
   constructor(private eventRepository: EventRepository) {}
