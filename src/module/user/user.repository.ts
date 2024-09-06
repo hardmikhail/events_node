@@ -3,16 +3,18 @@ import { User } from 'src/module/user/entity/user.entity';
 import { Between, Repository } from 'typeorm';
 
 // todo: не использовать наследование, а делать обёртку
-export class UserRepository extends Repository<User> {
+export class UserRepository {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {
-    super(
-      userRepository.target,
-      userRepository.manager,
-      userRepository.queryRunner,
-    );
+  ) {}
+//naming
+  find(data){
+    return this.userRepository.find(data)
+  }
+
+  save(data){
+    return this.userRepository.save(data)
   }
 
   findOneByEmail(email: string) {

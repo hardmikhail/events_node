@@ -3,15 +3,25 @@ import { Repository } from 'typeorm';
 
 import { Booking } from './entity/booking.entity';
 
-export class BookingRepository extends Repository<Booking> {
+export class BookingRepository{
   constructor(
     @InjectRepository(Booking)
     private readonly bookingRepository: Repository<Booking>,
-  ) {
-    super(
-      bookingRepository.target,
-      bookingRepository.manager,
-      bookingRepository.queryRunner,
-    );
+  ) {}
+
+  save(data) {
+    return this.bookingRepository.save(data)
+  }
+
+  delete(data) {
+    return this.bookingRepository.delete(data)
+  }
+
+  findOneBy(data) {
+    return this.bookingRepository.findOneBy(data)
+  }
+
+  find(data) {
+    return this.bookingRepository.find(data)
   }
 }

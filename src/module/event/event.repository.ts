@@ -1,19 +1,13 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 
 import { Event } from './entity/event.entity';
 
-export class EventRepository extends Repository<Event> {
+export class EventRepository {
   constructor(
     @InjectRepository(Event)
     private readonly eventRepository: Repository<Event>,
-  ) {
-    super(
-      eventRepository.target,
-      eventRepository.manager,
-      eventRepository.queryRunner,
-    );
-  }
+  ) {}
 
   // todo: переопределил метод из репозитория typeOrm. Это решится, если избавиться от наследования (смотри todo в user.reposutory)
   async findOneById(id: number) {
@@ -21,5 +15,21 @@ export class EventRepository extends Repository<Event> {
       where: { id },
       relations: ['organizer'],
     });
+  }
+
+  create(data: DeepPartial<Event>) {
+    return this.eventRepository.create(data)
+  }
+
+  save(data) {
+    return this.eventRepository.save(data)
+  }
+
+  delete(data) {
+    return this.eventRepository.delete(data)
+  }
+
+  find(data) {
+    return this.eventRepository.find(data)
   }
 }

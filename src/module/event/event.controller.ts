@@ -17,9 +17,9 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { SearchEventDto } from './dto/search-event.dto';
 import { EventService } from './event.service';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
-import { OrganizerGuard } from '../auth/guards/organizer.guard';
-import { EventOwnerGuard } from '../auth/guards/owner.guard';
 import { User } from '../user/entity/user.entity';
+import { OrganizerGuard } from '../user/guards/organizer.guard';
+import { EventOwnerGuard } from '../user/guards/owner.guard';
 
 @Controller('event')
 export class EventController {
