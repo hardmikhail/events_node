@@ -2,11 +2,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
-import { UserRepository } from 'src/module/user/user.repository';
 
 import { RegisterAuthDto } from './dto/register.auth.dto';
 import { Payload } from './strategies/types/auth.types';
 import { User } from '../user/entity/user.entity';
+import { UserRepository } from '../user/user.repository';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -42,8 +42,8 @@ export class AuthService {
   private async getToken(user: User) {
     const payload: Payload = { id: user.id, role: user.role };
     const accessToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get('JWT_ACCESS_SECRET'),
-      expiresIn: this.configService.get('JWT_ACCESS_EXPIRATION_TIME'),
+      secret: this.configService.getOrThrow('JWT_ACCESS_SECRET'),
+      expiresIn: this.configService.getOrThrow('JWT_ACCESS_EXPIRATION_TIME'),
     });
     return accessToken;
   }

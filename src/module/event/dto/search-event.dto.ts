@@ -1,19 +1,11 @@
-import { IsEnum, IsNumberString, IsOptional, IsString } from 'class-validator';
-import { Location } from 'src/config/types/entity.enums';
+import { PartialType, PickType } from '@nestjs/swagger';
+import { IsNumberString, IsOptional } from 'class-validator';
 
-export class SearchEventDto {
-  @IsOptional()
-  @IsString()
-  title?: string;
+import { CreateEventDto } from './create-event.dto';
 
-  @IsOptional()
-  @IsString()
-  description?: string;
-
-  @IsOptional()
-  @IsEnum(Location)
-  location?: Location;
-
+export class SearchEventDto extends PartialType(
+  PickType(CreateEventDto, ['title', 'description', 'location', 'tag']),
+) {
   @IsOptional()
   @IsNumberString()
   priceFrom?: number;
@@ -21,8 +13,4 @@ export class SearchEventDto {
   @IsOptional()
   @IsNumberString()
   priceTo?: number;
-
-  @IsOptional()
-  @IsString()
-  tag?: string;
 }

@@ -6,21 +6,25 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { UserFromRequest } from 'src/config/decorators/user.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateEventDto } from './dto/create-event.dto';
 import { SearchEventDto } from './dto/search-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 import { EventService } from './event.service';
+import { UserFromRequest } from '../../config/decorators/user.decorator';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { User } from '../user/entity/user.entity';
 import { OrganizerGuard } from '../user/guards/organizer.guard';
 import { EventOwnerGuard } from '../user/guards/owner.guard';
 
+@ApiTags('Event')
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
@@ -34,32 +38,27 @@ export class EventController {
     return this.eventService.createEvent(user, createEventDto);
   }
 
-  @Get('search')
-  search(@Query() params: SearchEventDto) {
-    return this.eventService.getEvents(params);
-  }
-
   @Get(':id')
-  read(@Param('id') id: number) {
+  read(@Param('id', ParseIntPipe) id: number) {
     return this.eventService.getOneById(id);
   }
 
+  @Get()
+  search(@Query() params: SearchEventDto) {
+    return this.eventService.getEvents(params);
+  }
+  // FIXME: не работает при id = string
   @Patch('update/:id')
   @UseGuards(AccessTokenGuard, EventOwnerGuard)
-  // todo: сделать отдельное dto для updateEventDto. Использовать PartialType
-  update(@Param('id') id: number, @Body() updateEventDto: CreateEventDto) {
+  update(@Param('id') id: number, @Body() updateEventDto: UpdateEventDto) {
     return this.eventService.updateEvent(id, updateEventDto);
   }
 
+  // FIXME: не работает при id = string
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(AccessTokenGuard, EventOwnerGuard)
   delete(@Param('id') id: number) {
     return this.eventService.deleteEvent(id);
-  }
-
-  @Get()
-  getAll() {
-    return this.eventService.getAll();
   }
 }

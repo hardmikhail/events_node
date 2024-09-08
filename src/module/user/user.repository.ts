@@ -1,20 +1,20 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/module/user/entity/user.entity';
 import { Between, Repository } from 'typeorm';
 
-// todo: не использовать наследование, а делать обёртку
+import { User } from './entity/user.entity';
+
 export class UserRepository {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-//naming
-  find(data){
-    return this.userRepository.find(data)
+
+  find() {
+    return this.userRepository.find({ relations: ['events'] });
   }
 
-  save(data){
-    return this.userRepository.save(data)
+  save(entity: Partial<User>) {
+    return this.userRepository.save(entity);
   }
 
   findOneByEmail(email: string) {

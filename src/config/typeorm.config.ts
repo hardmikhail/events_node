@@ -11,10 +11,11 @@ config();
 const configService = new ConfigService();
 const databaseConfig = {
   type: 'postgres' as const,
-  port: configService.get('POSTGRES_PORT'),
-  database: configService.get('POSTGRES_DB'),
-  username: configService.get('POSTGRES_USER'),
-  password: configService.get('POSTGRES_PASSWORD'),
+  host: configService.getOrThrow('DB_HOST'),
+  port: configService.getOrThrow('POSTGRES_PORT'),
+  database: configService.getOrThrow('POSTGRES_DB'),
+  username: configService.getOrThrow('POSTGRES_USER'),
+  password: configService.getOrThrow('POSTGRES_PASSWORD'),
   autoLoadEntities: true,
   synchronize: false,
   entities: ['dist/**/*.entity.js'],

@@ -3,7 +3,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Equal } from 'typeorm';
 
 import { BookingRepository } from './booking.repository';
 import { EventRepository } from '../event/event.repository';
@@ -18,7 +17,7 @@ export class BookingService {
 
   async createBooking(user: User, eventId: number) {
     const event = await this.eventRepository.findOneById(eventId);
-    const isBookingExists = await this.findOneBooking(user, eventId);
+    const isBookingExists = await this.findOneBooking(user.id, eventId);
     if (isBookingExists) {
       throw new ConflictException();
     }
@@ -26,29 +25,16 @@ export class BookingService {
   }
 
   async deleteBooking(user: User, eventId: number) {
-    // todo: убрать формирование запроса в сервисе
-    //  {
-    //       user: Equal(user.id),
-    //       event: Equal(eventId),
-    //   }
-    const result = await this.bookingRepository.delete({
-      user: Equal(user.id),
-      event: Equal(eventId),
-    });
+    const result = await this.bookingRepository.deleteBooking(user.id, eventId);
     if (result.affected === 0) {
       throw new NotFoundException();
     }
   }
 
-  private findOneBooking(user: User, eventId: number) {
-    // todo: убрать формирование запроса в сервисе
-    return this.bookingRepository.findOneBy({
-      user: Equal(user.id),
-      event: Equal(eventId),
-    });
+  private findOneBooking(userId: number, eventId: number) {
+    return this.bookingRepository.findOneById(userId, eventId);
   }
   findAll() {
-    // todo: убрать формирование запроса в сервисе
-    return this.bookingRepository.find({ relations: ['user', 'event'] });
+    return this.bookingRepository.findAll();
   }
 }

@@ -1,6 +1,3 @@
-import { Location } from 'src/config/types/entity.enums';
-import { Booking } from 'src/module/booking/entity/booking.entity';
-import { User } from 'src/module/user/entity/user.entity';
 import {
   Column,
   Entity,
@@ -8,6 +5,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Location } from '../../../config/types/entity.enums';
+import { Booking } from '../../booking/entity/booking.entity';
+import { User } from '../../user/entity/user.entity';
 
 @Entity()
 export class Event {
@@ -23,8 +24,11 @@ export class Event {
   @Column('timestamptz')
   startDate: Date;
 
-  @Column('text')
-  description: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  description?: string;
 
   @Column({
     type: 'enum',
@@ -39,5 +43,5 @@ export class Event {
   tag: string;
 
   @OneToMany(() => Booking, (booking) => booking.event)
-  bookings: Booking[];
+  bookings?: Booking[];
 }

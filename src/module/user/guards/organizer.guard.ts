@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { UserRole } from 'src/config/types/entity.enums';
 
-// todo: как будто по логике этот guard должен быть в другом модуле
+import { UserRole } from '../../../config/types/entity.enums';
+
 @Injectable()
 export class OrganizerGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {

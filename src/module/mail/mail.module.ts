@@ -8,16 +8,15 @@ import { MailerModule } from '@nestjs-modules/mailer';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         transport: {
-          // todo: use configService.getOrThrow
-          host: configService.get('SMTP_HOST'),
-          port: configService.get('SMTP_PORT'),
+          host: configService.getOrThrow('SMTP_HOST'),
+          port: configService.getOrThrow('SMTP_PORT'),
           auth: {
-            user: configService.get('SMTP_USER'),
-            pass: configService.get('SMTP_PASS'),
+            user: configService.getOrThrow('SMTP_USER'),
+            pass: configService.getOrThrow('SMTP_PASS'),
           },
         },
         defaults: {
-          from: '"nest-modules" <modules@nestjs.com>',
+          from: configService.getOrThrow('SMTP_FROM'),
         },
       }),
     }),

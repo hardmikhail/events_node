@@ -1,6 +1,16 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeepPartial, Repository } from 'typeorm';
+import {
+  And,
+  DeepPartial,
+  Equal,
+  FindManyOptions,
+  ILike,
+  LessThanOrEqual,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
+import { SearchEventDto } from './dto/search-event.dto';
 import { Event } from './entity/event.entity';
 
 export class EventRepository {
@@ -9,27 +19,44 @@ export class EventRepository {
     private readonly eventRepository: Repository<Event>,
   ) {}
 
-  // todo: переопределил метод из репозитория typeOrm. Это решится, если избавиться от наследования (смотри todo в user.reposutory)
-  async findOneById(id: number) {
+  create(entity: Partial<Event>) {
+    return this.eventRepository.create(entity);
+  }
+
+  save(entity: DeepPartial<Event>) {
+    return this.eventRepository.save(entity);
+  }
+
+  deleteById(id: number) {
+    return this.eventRepository.delete(id);
+  }
+
+  find(options: FindManyOptions<Event>) {
+    return this.eventRepository.find(options);
+  }
+
+  findOneById(id: number) {
     return this.eventRepository.findOne({
       where: { id },
       relations: ['organizer'],
     });
   }
 
-  create(data: DeepPartial<Event>) {
-    return this.eventRepository.create(data)
-  }
+  findEvents(params: SearchEventDto) {
+    const { title, description, location, tag, priceTo } = params;
+    const priceFrom = params.priceFrom ?? 0;
 
-  save(data) {
-    return this.eventRepository.save(data)
-  }
-
-  delete(data) {
-    return this.eventRepository.delete(data)
-  }
-
-  find(data) {
-    return this.eventRepository.find(data)
+    return this.eventRepository.find({
+      where: {
+        title: title ? ILike(`%${title}%`) : null,
+        description: description ? ILike(`%${description}%`) : null,
+        location: location ? Equal(location) : null,
+        tag: tag ? ILike(`%${tag}%`) : null,
+        price: priceTo
+          ? And(MoreThanOrEqual(priceFrom), LessThanOrEqual(priceTo))
+          : MoreThanOrEqual(priceFrom),
+      },
+      relations: ['organizer'],
+    });
   }
 }
