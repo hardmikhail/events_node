@@ -11,7 +11,6 @@ config();
 const configService = new ConfigService();
 const databaseConfig = {
   type: 'postgres' as const,
-  // host: configService.getOrThrow('DB_HOST'),
   port: configService.getOrThrow('POSTGRES_PORT'),
   database: configService.getOrThrow('POSTGRES_DB'),
   username: configService.getOrThrow('POSTGRES_USER'),
