@@ -6,17 +6,8 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-<<<<<<< Updated upstream
 
 import { Location, UserRole } from '../../../common/types/entity.enums';
-=======
-<<<<<<< Updated upstream
-import { Location, UserRole } from 'src/config/types/entity.enums';
-=======
-
-import { Location, UserRole } from '../../../common/types/entity.enums';
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 export class CreateUserDto {
   @IsEmail()

@@ -1,15 +1,5 @@
-<<<<<<< Updated upstream
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-=======
-<<<<<<< Updated upstream
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { UserFromRequest } from 'src/config/decorators/user.decorator';
-=======
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 import { AuthService } from './auth.service';
 import { RegisterAuthDto } from './dto/register.auth.dto';

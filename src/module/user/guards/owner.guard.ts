@@ -1,18 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
-<<<<<<< Updated upstream
 import { parseId } from '../../../common/utils/parse-id';
 import { EventRepository } from '../../event/event.repository';
 
-=======
-<<<<<<< Updated upstream
-// todo: как будто по логике этот guard должен быть в другом модуле
-=======
-import { parseId } from '../../../common/utils/parse-id';
-import { EventRepository } from '../../event/event.repository';
-
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 @Injectable()
 export class EventOwnerGuard implements CanActivate {
   constructor(private eventRepository: EventRepository) {}

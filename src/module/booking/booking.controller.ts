@@ -11,14 +11,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { BookingService } from './booking.service';
-<<<<<<< Updated upstream
 import { UserFromRequest } from '../../common/decorators/user.decorator';
-=======
-<<<<<<< Updated upstream
-=======
-import { UserFromRequest } from '../../common/decorators/user.decorator';
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { User } from '../user/entity/user.entity';
 
