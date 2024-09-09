@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Location } from '../../../config/types/entity.enums';
+import { Location } from '../../../common/types/entity.enums';
 import { Booking } from '../../booking/entity/booking.entity';
 import { User } from '../../user/entity/user.entity';
 

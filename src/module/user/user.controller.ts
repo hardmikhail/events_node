@@ -4,7 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entity/user.entity';
 import { UserService } from './user.service';
-import { UserFromRequest } from '../../config/decorators/user.decorator';
+import { UserFromRequest } from '../../common/decorators/user.decorator';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 
 @ApiTags('User')

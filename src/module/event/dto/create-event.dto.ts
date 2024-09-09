@@ -6,7 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 
-import { Location } from '../../../config/types/entity.enums';
+import { Location } from '../../../common/types/entity.enums';
 
 export class CreateEventDto {
   @IsString()

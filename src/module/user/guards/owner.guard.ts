@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
+import { parseId } from '../../../common/utils/parse-id';
 import { EventRepository } from '../../event/event.repository';
 
 @Injectable()
@@ -9,7 +10,8 @@ export class EventOwnerGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
     const id = request.params.id;
-    const event = await this.eventRepository.findOneById(id);
+    const parsedId = parseId(id);
+    const event = await this.eventRepository.findOneById(parsedId);
 
     return event?.organizer.id === user.id;
   }

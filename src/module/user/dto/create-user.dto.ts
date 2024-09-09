@@ -7,7 +7,7 @@ import {
   IsStrongPassword,
 } from 'class-validator';
 
-import { Location, UserRole } from '../../../config/types/entity.enums';
+import { Location, UserRole } from '../../../common/types/entity.enums';
 
 export class CreateUserDto {
   @IsEmail()

@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
 
 import { RegisterAuthDto } from './dto/register.auth.dto';
-import { Payload } from './strategies/types/auth.types';
+import { Payload } from '../../common/types/auth.types';
 import { User } from '../user/entity/user.entity';
 import { UserRepository } from '../user/user.repository';
 import { UserService } from '../user/user.service';

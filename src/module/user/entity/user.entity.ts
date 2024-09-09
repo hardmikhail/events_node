@@ -1,7 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { UserRole, Location } from '../../../config/types/entity.enums';
+import { UserRole, Location } from '../../../common/types/entity.enums';
 import { Booking } from '../../booking/entity/booking.entity';
 import { Event } from '../../event/entity/event.entity';
 

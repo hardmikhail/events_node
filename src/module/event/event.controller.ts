@@ -18,7 +18,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { SearchEventDto } from './dto/search-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { EventService } from './event.service';
-import { UserFromRequest } from '../../config/decorators/user.decorator';
+import { UserFromRequest } from '../../common/decorators/user.decorator';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { User } from '../user/entity/user.entity';
 import { OrganizerGuard } from '../user/guards/organizer.guard';
@@ -47,14 +47,12 @@ export class EventController {
   search(@Query() params: SearchEventDto) {
     return this.eventService.getEvents(params);
   }
-  // FIXME: не работает при id = string
   @Patch('update/:id')
   @UseGuards(AccessTokenGuard, EventOwnerGuard)
   update(@Param('id') id: number, @Body() updateEventDto: UpdateEventDto) {
     return this.eventService.updateEvent(id, updateEventDto);
   }
 
-  // FIXME: не работает при id = string
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(AccessTokenGuard, EventOwnerGuard)

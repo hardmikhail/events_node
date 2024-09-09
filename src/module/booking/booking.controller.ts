@@ -11,7 +11,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { BookingService } from './booking.service';
-import { UserFromRequest } from '../../config/decorators/user.decorator';
+import { UserFromRequest } from '../../common/decorators/user.decorator';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { User } from '../user/entity/user.entity';
 
