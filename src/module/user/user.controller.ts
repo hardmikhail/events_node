@@ -4,7 +4,14 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entity/user.entity';
 import { UserService } from './user.service';
+<<<<<<< Updated upstream
 import { UserFromRequest } from '../../common/decorators/user.decorator';
+=======
+<<<<<<< Updated upstream
+=======
+import { UserFromRequest } from '../../common/decorators/user.decorator';
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 
 @ApiTags('User')

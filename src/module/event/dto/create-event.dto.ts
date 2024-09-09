@@ -5,8 +5,17 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
+<<<<<<< Updated upstream
 
 import { Location } from '../../../common/types/entity.enums';
+=======
+<<<<<<< Updated upstream
+import { Location } from 'src/config/types/entity.enums';
+=======
+
+import { Location } from '../../../common/types/entity.enums';
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 export class CreateEventDto {
   @IsString()
