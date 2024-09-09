@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
-import { UserRepository } from 'src/module/user/user.repository';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
@@ -18,6 +18,7 @@ export class UserService {
     const hashedPassword = await hash(user.password);
     user.password = hashedPassword;
     user.email = email;
+
     return this.userRepository.save(user);
   }
 
@@ -28,12 +29,11 @@ export class UserService {
       fullname: updateUserDto.fullname,
       location: updateUserDto.location,
     };
-
     return this.userRepository.save(updatedUser);
   }
 
   getAll() {
-    return this.userRepository.find({ relations: ['events'] });
+    return this.userRepository.find();
   }
 
   getUsersWithAppointments(today: Date, tomorrow: Date) {

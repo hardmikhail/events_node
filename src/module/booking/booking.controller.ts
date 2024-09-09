@@ -8,12 +8,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { UserFromRequest } from 'src/config/decorators/user.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 import { BookingService } from './booking.service';
+import { UserFromRequest } from '../../common/decorators/user.decorator';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { User } from '../user/entity/user.entity';
 
+@ApiTags('Booking')
 @Controller()
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}

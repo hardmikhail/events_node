@@ -1,17 +1,20 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/module/user/entity/user.entity';
 import { Between, Repository } from 'typeorm';
 
-export class UserRepository extends Repository<User> {
+import { User } from './entity/user.entity';
+
+export class UserRepository {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {
-    super(
-      userRepository.target,
-      userRepository.manager,
-      userRepository.queryRunner,
-    );
+  ) {}
+
+  find() {
+    return this.userRepository.find({ relations: ['events'] });
+  }
+
+  save(entity: Partial<User>) {
+    return this.userRepository.save(entity);
   }
 
   findOneByEmail(email: string) {

@@ -1,12 +1,8 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { Location } from 'src/config/types/entity.enums';
+import { PartialType, PickType } from '@nestjs/swagger';
 
-export class UpdateUserDto {
-  @IsEnum(Location)
-  @IsOptional()
-  location: Location;
+import { CreateUserDto } from './create-user.dto';
 
-  @IsString()
-  @IsOptional()
-  fullname: string;
-}
+export class UpdateUserDto extends PickType(PartialType(CreateUserDto), [
+  'location',
+  'fullname',
+]) {}

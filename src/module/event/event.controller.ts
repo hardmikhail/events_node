@@ -6,21 +6,25 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { UserFromRequest } from 'src/config/decorators/user.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateEventDto } from './dto/create-event.dto';
 import { SearchEventDto } from './dto/search-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 import { EventService } from './event.service';
+import { UserFromRequest } from '../../common/decorators/user.decorator';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
-import { OrganizerGuard } from '../auth/guards/organizer.guard';
-import { EventOwnerGuard } from '../auth/guards/owner.guard';
 import { User } from '../user/entity/user.entity';
+import { OrganizerGuard } from '../user/guards/organizer.guard';
+import { EventOwnerGuard } from '../user/guards/owner.guard';
 
+@ApiTags('Event')
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
@@ -40,13 +44,13 @@ export class EventController {
   }
 
   @Get(':id')
-  read(@Param('id') id: number) {
+  read(@Param('id', ParseIntPipe) id: number) {
     return this.eventService.getOneById(id);
   }
 
   @Patch('update/:id')
   @UseGuards(AccessTokenGuard, EventOwnerGuard)
-  update(@Param('id') id: number, @Body() updateEventDto: CreateEventDto) {
+  update(@Param('id') id: number, @Body() updateEventDto: UpdateEventDto) {
     return this.eventService.updateEvent(id, updateEventDto);
   }
 
@@ -55,10 +59,5 @@ export class EventController {
   @UseGuards(AccessTokenGuard, EventOwnerGuard)
   delete(@Param('id') id: number) {
     return this.eventService.deleteEvent(id);
-  }
-
-  @Get()
-  getAll() {
-    return this.eventService.getAll();
   }
 }

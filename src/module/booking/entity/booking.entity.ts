@@ -1,6 +1,7 @@
-import { Event } from 'src/module/event/entity/event.entity';
-import { User } from 'src/module/user/entity/user.entity';
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Event } from '../../event/entity/event.entity';
+import { User } from '../../user/entity/user.entity';
 
 @Entity()
 export class Booking {

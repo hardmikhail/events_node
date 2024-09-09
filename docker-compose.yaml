@@ -2,8 +2,19 @@ services:
   events_node_db:
     restart: always
     image: postgres:16-alpine
-    container_name: events_node_db
+    container_name: $DB_HOST
     env_file:
-        - path: ./.env
+      - path: ./.env
     ports:
-      - "$POSTGRES_PORT:5432"
+      - '$POSTGRES_PORT:5432'
+
+  events_node:
+    restart: always
+    build: .
+    container_name: events_node
+    env_file:
+      - path: ./.env
+    ports:
+      - '$HTTP_PORT:3000'
+    depends_on:
+    - events_node_db

@@ -1,8 +1,9 @@
 import { Exclude } from 'class-transformer';
-import { UserRole, Location } from 'src/config/types/entity.enums';
-import { Booking } from 'src/module/booking/entity/booking.entity';
-import { Event } from 'src/module/event/entity/event.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { UserRole, Location } from '../../../common/types/entity.enums';
+import { Booking } from '../../booking/entity/booking.entity';
+import { Event } from '../../event/entity/event.entity';
 
 @Entity()
 export class User {
@@ -21,13 +22,10 @@ export class User {
   @Column({
     type: 'enum',
     enum: Location,
-    nullable: true,
   })
   location: Location;
 
-  @Column({
-    nullable: true,
-  })
+  @Column()
   fullname: string;
 
   @Column({
@@ -38,8 +36,8 @@ export class User {
   role: UserRole;
 
   @OneToMany(() => Event, (event) => event.organizer)
-  events: Event[];
+  events?: Event[];
 
   @OneToMany(() => Booking, (booking) => booking.user)
-  bookings: Booking[];
+  bookings?: Booking[];
 }

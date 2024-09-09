@@ -5,7 +5,8 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
-import { Location } from 'src/config/types/entity.enums';
+
+import { Location } from '../../../common/types/entity.enums';
 
 export class CreateEventDto {
   @IsString()
@@ -16,7 +17,8 @@ export class CreateEventDto {
   @IsDateString()
   startDate: Date;
 
-  description: string;
+  @IsString()
+  description?: string;
 
   @IsEnum(Location)
   location: Location;

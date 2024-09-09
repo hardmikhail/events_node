@@ -1,4 +1,4 @@
-import { UserRole } from 'src/config/types/entity.enums';
+import { UserRole } from 'src/common/types/entity.enums';
 
 export type Payload = {
   id: number;
